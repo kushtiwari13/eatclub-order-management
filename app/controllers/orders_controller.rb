@@ -36,27 +36,28 @@ class OrdersController < ApplicationController
   
   
 
-def update
-  order = Order.find(params[:id])
-
-  # Allowed statuses
-  valid_statuses = ["preparing", "out_for_delivery", "delivered"]
-
-  new_status = status_params[:status]
-
-  unless valid_statuses.include?(new_status)
-    return render json: { error: "Invalid status. Allowed statuses: #{valid_statuses.join(', ')}" }, status: :unprocessable_entity
+  def update
+    order = Order.find(params[:id])
+  
+    # Allowed statuses
+    valid_statuses = ["preparing", "out_for_delivery", "delivered"]
+  
+    new_status = status_params[:status]
+  
+    unless valid_statuses.include?(new_status)
+      return render json: { error: "Invalid status. Allowed statuses: #{valid_statuses.join(', ')}" }, status: :unprocessable_entity
+    end
+  
+    order.update!(status: new_status)
+  
+    render json: { message: "Order status updated successfully", order_id: order.id, new_status: order.status }, status: :ok
+  
+  rescue ActiveRecord::RecordNotFound
+    render json: { error: "Order not found" }, status: :not_found
+  rescue => e
+    render json: { error: e.message }, status: :unprocessable_entity
   end
-
-  order.update!(status: new_status)
-
-  render json: { message: "Order status updated successfully", order_id: order.id, new_status: order.status }, status: :ok
-
-rescue ActiveRecord::RecordNotFound
-  render json: { error: "Order not found" }, status: :not_found
-rescue => e
-  render json: { error: e.message }, status: :unprocessable_entity
-end
+  
 
 
   def show
