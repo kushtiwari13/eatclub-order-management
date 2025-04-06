@@ -61,11 +61,26 @@ class OrdersController < ApplicationController
 
 
   def show
-    order = Order.find(params[:id])
-    render json: order, include: :order_items
+    order = Order.includes(order_items: :inventory).find(params[:id])
+  
+    order_data = {
+      order_id: order.id,
+      status: order.status,
+      items: order.order_items.map do |item|
+        {
+          inventory_item_id: item.inventory.id,
+          item_name: item.inventory.item_name,
+          quantity: item.quantity
+        }
+      end
+    }
+  
+    render json: order_data, status: :ok
+  
   rescue ActiveRecord::RecordNotFound
-    render json: { error: 'Order not found' }, status: :not_found
+    render json: { error: "Order not found" }, status: :not_found
   end
+  
 
   private
 
