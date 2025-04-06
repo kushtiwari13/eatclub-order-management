@@ -62,6 +62,8 @@ class OrdersController < ApplicationController
   
       # Step 2: Update the order status
       order.update!(status: new_status)
+
+      OrderEventJob.perform_later(order.id, order.status)
     end
   
     render json: { message: "Order status updated successfully", order_id: order.id, new_status: order.status }, status: :ok
