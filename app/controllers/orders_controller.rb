@@ -19,7 +19,7 @@ class OrdersController < ApplicationController
         
         # Alert if low stock
         if inventory.quantity < inventory.threshold
-          puts "Alert: Inventory for '#{inventory.item_name}' is low (quantity: #{inventory.quantity}, threshold: #{inventory.threshold})"
+          InventoryAlertJob.perform_later(inventory.id)
         end
 
         # Create order item
