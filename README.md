@@ -105,14 +105,9 @@ http://localhost:3000
 ## testing apis (postman or curl)
 
 ### inventory preloaded
-
-Yes, Kush. Here’s your natural, bullet-point style for that section too:
-
----
-
 you can check seeded inventory in database or run:
 ```bash
-bin/rails console
+rails console
 Inventory.all
 ```
 
