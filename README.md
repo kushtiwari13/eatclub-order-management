@@ -1,6 +1,4 @@
-# Eatclub real-time order management system
 
----
 
 ## project overview
 
