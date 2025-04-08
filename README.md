@@ -6,8 +6,8 @@
 2. this is a backend system for managing real-time orders and inventory in a food delivery platform.
    
 components:
-- rails controllers: handles incoming requests for orders and inventory.
-- activerecord models: business logic for order placement, status updates, inventory deduction/increment.
+- api layer (rails controllers): handles incoming requests for orders and inventory.
+- service layer (activerecord models): business logic for order placement, status updates, inventory deduction/increment.
 - background jobs (sidekiq): processes asynchronous tasks like order event emission and inventory alerts.
 - database (postgresql): stores orders, inventory, and order items data.
 - redis: message broker for sidekiq background jobs.
