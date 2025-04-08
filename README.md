@@ -1,8 +1,25 @@
 # Eatclub real_time_order_management_system
 
-## project overview
+## project overview and system architecture overview
 
-this is a scalable backend system for managing real-time orders and inventory in a food delivery platform.
+1. the system follows an api-only architecture using ruby on rails framework.
+2. this is a backend system for managing real-time orders and inventory in a food delivery platform.
+   
+components:
+- api layer (rails controllers): handles incoming requests for orders and inventory.
+- service layer (activerecord models): business logic for order placement, status updates, inventory deduction/increment.
+- background jobs (sidekiq): processes asynchronous tasks like order event emission and inventory alerts.
+- database (postgresql): stores orders, inventory, and order items data.
+- redis: message broker for sidekiq background jobs.
+
+flow:
+- api receives request
+- controller validates input and processes via models
+- inventory is checked and adjusted
+- order is created or updated
+- background jobs are triggered for events and alerts
+
+---
 
 features:
 - place orders
