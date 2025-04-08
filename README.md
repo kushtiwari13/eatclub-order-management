@@ -35,7 +35,8 @@ sidekiq
 
 if you have from github:
 ```bash
-git clone <my-repo-link>
+git clone https://github.com/kushtiwari13/eatclub-order-management
+# master branch
 cd eatclub-order-management
 ```
 ---
